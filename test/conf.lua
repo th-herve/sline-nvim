@@ -497,7 +497,7 @@ require("lazy").setup({
     },
 
     {
-      dir = "~/programming/project/sline/", -- Your path
+      dir = "~/programming/project/sline-nvim/", -- Your path
       name = "sline",
       -- config = function()
       --   require('winbar')

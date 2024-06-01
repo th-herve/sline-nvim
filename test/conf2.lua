@@ -31,7 +31,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {
-      dir = "~/programming/project/sline/", -- Your path
+      dir = "~/programming/project/sline-nvim/", -- Your path
       name = "sline",
       dependencies = { "nvim-tree/nvim-web-devicons","tpope/vim-fugitive"   },
     },
