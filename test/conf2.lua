@@ -30,16 +30,19 @@ vim.opt.rtp:prepend(lazypath)
 -- +-------------------------------+
 
 require("lazy").setup({
-    {
-      dir = "~/programming/project/sline-nvim/", -- Your path
-      name = "sline",
-      dependencies = { "nvim-tree/nvim-web-devicons","tpope/vim-fugitive"   },
-    },
-    {
-    'nvim-telescope/telescope.nvim', tag = '0.1.6',
-      dependencies = { 'nvim-lua/plenary.nvim' }
-    },
+  {
+    dir = "~/programming/project/sline-nvim/",   -- Your path
+    name = "sline",
+    dependencies = { "nvim-tree/nvim-web-devicons", "tpope/vim-fugitive" },
+    opts = {
+      depth = 0,
+    }
+  },
+  {
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.6',
+    dependencies = { 'nvim-lua/plenary.nvim' }
+  },
 })
 
-require("sline").setup()
 require("telescope").setup()

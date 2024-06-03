@@ -44,9 +44,9 @@ local function get_git_branch()
   return branch
 end
 
-local function get_winbar()
+local function get_winbar(opts)
 
-  return get_breadcrum(2)
+  return get_breadcrum(opts.depth)
       .. "%="
       .. get_git_branch()
 end
