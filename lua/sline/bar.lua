@@ -3,7 +3,7 @@ local win_hl = "%#WinBar#"
 
 local function get_breadcrum(depth)
   local filename = vim.fn.expand("%:t")
-  filename = (filename == "" and "[ NO NAME ]" or filename)
+  filename = (filename == "" and "[ no name ]" or filename)
 
   local extension = vim.fn.expand("%:e")
 
@@ -39,6 +39,13 @@ local function get_breadcrum(depth)
       .. filename
 end
 
+local function get_diagnosctics()
+  local count = require("sline.diagnostics").get_count()
+
+  return "%#DiagnosticError#" .. win_hl .. " " .. count.error .. " "
+        .. "%#DiagnosticWarn#" .. " " .. win_hl .. count.warning
+end
+
 local function get_git_branch()
   local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
 
@@ -51,6 +58,8 @@ end
 local function get_winbar(opts)
   return get_breadcrum(opts.depth)
       .. "%="
+      .. get_diagnosctics()
+      .. "   "
       .. get_git_branch()
 end
 

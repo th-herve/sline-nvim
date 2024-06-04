@@ -17,7 +17,7 @@ function M.setup(opts)
 
   config.setup(opts)
 
-  vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  vim.api.nvim_create_autocmd({ "BufEnter", "CursorMoved" }, {
     group = augroup,
     callback = function()
       vim.o.winbar = bar.get_winbar(config)
