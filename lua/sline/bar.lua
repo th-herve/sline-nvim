@@ -1,4 +1,3 @@
-
 local devicon = require("nvim-web-devicons")
 local win_hl = "%#WinBar#"
 
@@ -11,15 +10,21 @@ local function get_breadcrum(depth)
   local directories = vim.fn.expand("%:p:h")
   local dirs_list = vim.split(directories, "/") -- break path into all directories
 
-  local dir_bar = "%#Directory#󰉋 "
-  local next_dir = ""
 
   local max = #dirs_list
-  local min = #dirs_list - depth+1
+  local min = #dirs_list - depth + 1
+  if min < 1 then
+    min = 1
+  end
 
-  for i = min, max, 1 do
-      next_dir = dirs_list[i]
+  local dir_bar = ""
+
+  if min < max then
+    dir_bar = "%#Directory#󰉋 "
+    for i = min, max, 1 do
+      local next_dir = dirs_list[i]
       dir_bar = dir_bar .. win_hl .. next_dir .. "%#WarningMsg#" .. " > "
+    end
   end
 
   local icon, icon_hl = devicon.get_icon(filename, extension, { default = true })
@@ -32,11 +37,10 @@ local function get_breadcrum(depth)
       .. win_hl
       .. " "
       .. filename
-
 end
 
 local function get_git_branch()
-	local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
+  local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
 
   if branch ~= "" then
     branch = "%#Directory#  " .. win_hl .. branch
@@ -45,7 +49,6 @@ local function get_git_branch()
 end
 
 local function get_winbar(opts)
-
   return get_breadcrum(opts.depth)
       .. "%="
       .. get_git_branch()
