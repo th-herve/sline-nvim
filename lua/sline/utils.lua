@@ -1,10 +1,3 @@
-local function print_table(tbl)
-  for k, v in pairs(tbl) do
-    print(k .. " = " .. v)
-  end
+function P(tbl)
+  vim.print(tbl)
 end
-
-
-return {
-  print_table = print_table
-}
