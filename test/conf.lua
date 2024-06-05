@@ -499,6 +499,10 @@ require("lazy").setup({
     {
       dir = "~/programming/project/sline-nvim/", -- Your path
       name = "sline",
+      opts = {
+        depth = 2,
+        status_line = false,
+      }
       -- config = function()
       --   require('winbar')
       -- end
@@ -535,8 +539,6 @@ require("telescope").setup({
     },
   },
 })
-
-require("sline").setup()
 
 -- Enable telescope fzf native, if installed
 pcall(require("telescope").load_extension, "fzf")

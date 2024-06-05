@@ -1,15 +1,18 @@
+local M = {}
 
----@return table { error=num, warning=num }
-local function get_count()
-  local result = { error = 0, warning = 0 }
-  result.error = #(vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }))
-  result.warning = #(vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }))
+---@return { error: number, warning: number }
+M.get_count = function()
+    local result = { error = 0, warning = 0 }
+    result.error = #(
+        vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+    )
+    result.warning = #(
+        vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+    )
 
-  return result
+    return result
 end
 
-vim.print(get_count())
+vim.print(M.get_count())
 
-return {
-  get_count = get_count
-}
+return M
