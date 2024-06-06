@@ -1,8 +1,12 @@
+---@alias bar_element string
+
 local devicon = require('nvim-web-devicons')
 local win_hl = '%#WinBar#'
 
 local M = {}
 
+---@param depth number: number of directories to include
+---@return bar_element
 local function get_breadcrum(depth)
     local filename = vim.fn.expand('%:t')
     filename = (filename == '' and '[ no name ]' or filename)
@@ -41,6 +45,7 @@ local function get_breadcrum(depth)
         .. filename
 end
 
+---@return bar_element
 local function get_diagnostics()
     local count = require('sline.diagnostics').get_count()
 
@@ -53,6 +58,7 @@ local function get_diagnostics()
         .. count.warning
 end
 
+---@return bar_element
 local function get_git_branch()
     local branch =
         vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
@@ -63,7 +69,8 @@ local function get_git_branch()
     return branch
 end
 
----@return string
+---@param opts Config
+---@return bar_element
 M.get_winbar = function(opts)
     return get_breadcrum(opts.depth)
         .. '%='
