@@ -36,7 +36,7 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons", "tpope/vim-fugitive" },
     opts = {
       depth = 300,
-      status_line = true,
+      status_line = false,
     }
   },
   {
