@@ -26,7 +26,7 @@ local function get_breadcrum(depth)
 
     local dir_bar = ''
 
-    if min < max then
+    if min <= max then
         dir_bar = '%#Directory#󰉋 '
         for i = min, max, 1 do
             local next_dir = dirs_list[i]
