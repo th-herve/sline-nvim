@@ -12,7 +12,7 @@ local M = {}
 ---@return bar_element
 local function get_breadcrum()
     local filename = vim.fn.expand('%:t')
-    filename = (filename == '' and '[ no name ]' or filename)
+    filename = (filename == '' and config.unamed_buffer_label or filename)
 
     local extension = vim.fn.expand('%:e')
 

@@ -1,11 +1,13 @@
 ---@class Config
 ---@field depth integer
 ---@field status_line boolean
+---@field unamed_buffer_label string
 local M = {}
 
 local default_config = {
     depth = 1,
     status_line = false,
+    unamed_buffer_label = '[ no name ]',
 }
 
 ---@param opts Config
