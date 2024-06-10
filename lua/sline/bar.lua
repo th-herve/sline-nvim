@@ -2,6 +2,7 @@
 
 local devicon = require('nvim-web-devicons')
 local win_hl = '%#WinBar#'
+local empty_element = ''
 
 local M = {}
 
@@ -40,6 +41,10 @@ end
 
 ---@return bar_element
 local function get_diagnostics()
+    if #(vim.lsp.buf_get_clients()) == 0 then
+        return empty_element
+    end
+
     local count = require('sline.diagnostics').get_count()
 
     return '%#DiagnosticError#' .. ' ' .. count.error .. ' ' .. '%#DiagnosticWarn#' .. ' ' .. count.warning
