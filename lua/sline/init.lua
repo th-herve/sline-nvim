@@ -23,7 +23,7 @@ function M.setup(opts)
                 elem = 'statusline'
             end
 
-            vim.o[elem] = bar.get_winbar(config)
+            vim.o[elem] = bar.get_winbar()
         end,
     })
 end

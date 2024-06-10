@@ -3,6 +3,9 @@
 ---@type Config
 local config = require('sline.config')
 
+---@type Color
+local color = require('sline.color')
+
 local devicon = require('nvim-web-devicons')
 local win_hl = '%#WinBar#'
 local empty_element = ''
@@ -29,10 +32,10 @@ local function get_breadcrum()
     local dir_bar = ''
 
     if min <= max then
-        dir_bar = '%#Directory#󰉋 '
+        dir_bar = color.directory .. '󰉋 '
         for i = min, max, 1 do
             local next_dir = dirs_list[i]
-            dir_bar = dir_bar .. win_hl .. next_dir .. '%#WarningMsg#' .. ' > '
+            dir_bar = dir_bar .. win_hl .. next_dir .. color.separator .. ' > '
         end
     end
 
