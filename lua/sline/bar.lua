@@ -46,7 +46,7 @@ end
 
 ---@return bar_element
 local function get_diagnostics()
-    if #(vim.lsp.buf_get_clients()) == 0 then
+    if #(vim.lsp.get_clients({ bufnr = 0 })) == 0 then
         return empty_element
     end
 
