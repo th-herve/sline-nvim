@@ -32,7 +32,7 @@ local function get_breadcrum()
     local dir_bar = ''
 
     if min <= max then
-        dir_bar = color.directory .. '󰉋 '
+        dir_bar = color.directory .. ' 󰉋 '
         for i = min, max, 1 do
             local next_dir = dirs_list[i]
             dir_bar = dir_bar .. win_hl .. next_dir .. color.separator .. ' > '
@@ -52,7 +52,7 @@ local function get_diagnostics()
 
     local count = require('sline.diagnostics').get_count()
 
-    return '%#DiagnosticError#' .. ' ' .. count.error .. ' ' .. '%#DiagnosticWarn#' .. ' ' .. count.warning
+    return color.lsp_error .. ' ' .. count.error .. ' ' .. color.lsp_warning .. ' ' .. count.warning
 end
 
 ---@return bar_element
@@ -60,7 +60,7 @@ local function get_git_branch()
     local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
 
     if branch ~= '' then
-        branch = '%#Directory#  ' .. win_hl .. branch
+        branch = color.directory .. ' ' .. win_hl .. branch
     end
     return branch
 end
