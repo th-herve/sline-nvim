@@ -66,7 +66,7 @@ end
 
 ---@return bar_element
 M.get_winbar = function()
-    return get_breadcrum() .. '%=' .. get_diagnostics() .. '   ' .. get_git_branch()
+    return get_breadcrum() .. '%=' .. get_diagnostics() .. '   ' .. get_git_branch() .. ' '
 end
 
 return M
