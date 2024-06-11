@@ -7,7 +7,6 @@ local config = require('sline.config')
 local color = require('sline.color')
 
 local devicon = require('nvim-web-devicons')
-local win_hl = '%#WinBar#'
 local empty_element = ''
 
 local M = {}
@@ -35,13 +34,13 @@ local function get_breadcrum()
         dir_bar = color.directory .. ' 󰉋 '
         for i = min, max, 1 do
             local next_dir = dirs_list[i]
-            dir_bar = dir_bar .. win_hl .. next_dir .. color.separator .. ' > '
+            dir_bar = dir_bar .. color.winbar .. next_dir .. color.separator .. ' > '
         end
     end
 
-    local icon, icon_hl = devicon.get_icon(filename, extension, { default = true })
+    local icon, icon_hl = color.get_icon(filename, extension)
 
-    return dir_bar .. '%#' .. icon_hl .. '#' .. icon .. win_hl .. ' ' .. filename
+    return dir_bar .. icon_hl .. icon .. color.winbar .. ' ' .. filename
 end
 
 ---@return bar_element
@@ -60,7 +59,7 @@ local function get_git_branch()
     local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
 
     if branch ~= '' then
-        branch = color.directory .. ' ' .. win_hl .. branch
+        branch = color.directory .. ' ' .. color.winbar .. branch
     end
     return branch
 end

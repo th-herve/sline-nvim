@@ -1,21 +1,11 @@
-local winbar_colors = vim.api.nvim_get_hl(0, { name = 'Winbar' })
+local devicon = require('nvim-web-devicons')
 
 ---@param name string highlight name
 ---@param elem "fg" | "bg"
+---@return string color
 local function get(name, elem)
     local hl = vim.api.nvim_get_hl(0, { name = name })
     return hl[elem]
-end
-
-local highlights = {
-    SlineDirectory = { default = true, bg = get('Winbar', 'bg'), fg = get('Directory', 'fg') },
-    SlineLspError = { default = true, bg = get('Winbar', 'bg'), fg = get('DiagnosticError', 'fg') },
-    SlineLspWarning = { default = true, bg = get('Winbar', 'bg'), fg = get('DiagnosticWarn', 'fg') },
-    SlineSeparator = { default = true, bg = get('Winbar', 'bg'), fg = get('DiagnosticWarn', 'fg') },
-}
-
-for k, v in pairs(highlights) do
-    vim.api.nvim_set_hl(0, k, v)
 end
 
 ---@alias highlight string
@@ -29,7 +19,33 @@ end
 ---@field separator highlight
 local M = {}
 
-M.winbar = '%#Winbar#'
+M.set_highlights = function()
+    local highlights = {
+        SlineDirectory = { default = true, bg = get('Winbar', 'bg'), fg = get('Directory', 'fg') },
+        SlineLspError = { default = true, bg = get('Winbar', 'bg'), fg = get('DiagnosticError', 'fg') },
+        SlineLspWarning = { default = true, bg = get('Winbar', 'bg'), fg = get('DiagnosticWarn', 'fg') },
+        SlineSeparator = { default = true, bg = get('Winbar', 'bg'), fg = get('DiagnosticWarn', 'fg') },
+        SlineWinbar = { default = true, bg = get('Winbar', 'bg'), fg = get('Winbar', 'fg') },
+    }
+    for k, v in pairs(highlights) do
+        vim.api.nvim_set_hl(0, k, v)
+    end
+end
+M.set_highlights()
+
+M.get_icon = function(filename, extension)
+    local icon, icon_hl = devicon.get_icon(filename, extension, { default = true })
+
+    local icon_hl_data = vim.api.nvim_get_hl(0, { name = icon_hl })
+
+    vim.api.nvim_set_hl(0, 'SlineIcon', { default = true, bg = get('Winbar', 'bg'), fg = icon_hl_data.fg })
+    print(icon_hl_data.fg)
+
+    return icon, M.icon
+end
+
+M.winbar = '%#SlineWinbar#'
+M.icon = '%#SlineIcon#'
 M.directory = '%#SlineDirectory#'
 M.lsp_warning = '%#SlineLspWarning#'
 M.lsp_error = '%#SlineLspError#'

@@ -26,6 +26,12 @@ function M.setup(opts)
             vim.o[elem] = bar.get_winbar()
         end,
     })
+    vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
+        group = augroup,
+        callback = function()
+            require('sline.color').set_highlights()
+        end,
+    })
 end
 
 return M
