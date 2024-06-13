@@ -2,6 +2,7 @@ local M = {}
 
 local bar = require('sline.bar')
 local config = require('sline.config')
+local color = require('sline.color')
 
 local augroup = vim.api.nvim_create_augroup('sline', { clear = true })
 
@@ -24,12 +25,14 @@ function M.setup(opts)
             end
 
             vim.o[elem] = bar.get_winbar()
+            color.update_icon()
         end,
     })
     vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
         group = augroup,
         callback = function()
-            require('sline.color').set_highlights()
+            color.set_highlights()
+            color.update_icon()
         end,
     })
 end

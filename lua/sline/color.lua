@@ -39,9 +39,15 @@ M.get_icon = function(filename, extension)
     local icon_hl_data = vim.api.nvim_get_hl(0, { name = icon_hl })
 
     vim.api.nvim_set_hl(0, 'SlineIcon', { default = true, bg = get('WinBar', 'bg'), fg = icon_hl_data.fg })
-    print(get('WinBar', 'bg'))
 
     return icon, M.icon
+end
+
+M.update_icon = function()
+    local _, color = devicon.get_icon_colors(vim.fn.expand('%:t'), vim.fn.expand('%:e'), { default = true })
+
+    vim.api.nvim_set_hl(0, 'SlineIcon', { default = true, bg = get('WinBar', 'bg'), fg = color })
+    vim.cmd('highlight SlineIcon guifg=' .. color)
 end
 
 M.winbar = '%#SlineWinbar#'
