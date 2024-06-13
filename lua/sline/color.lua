@@ -8,7 +8,7 @@ local function get(name, elem)
     return hl[elem]
 end
 
----@alias highlight string
+---@alias highlight string %#highlight_group#
 
 ---@class Color
 ---@field winbar highlight
