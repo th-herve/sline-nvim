@@ -1,29 +1,25 @@
 ---@alias bar_element string
 
----@type Config
 local config = require('sline.config')
-
----@type Color
 local color = require('sline.color')
-
 local devicon = require('nvim-web-devicons')
+
 local empty_element = ''
 
 local M = {}
 
 ---@return bar_element
-local function get_breadcrum()
+local function get_breadcrum(depth)
     local filename = vim.fn.expand('%:t')
     filename = (filename == '' and config.unamed_buffer_label or filename)
 
     local extension = vim.fn.expand('%:e')
 
     local directories = vim.fn.expand('%:p:h')
-    directories = directories:sub(2) -- remove leading '/'
-    local dirs_list = vim.split(directories, '/')
+    local dirs_list = vim.split(directories:sub(2), '/') -- :sub(2) remove the leading '/'
 
     local max = #dirs_list
-    local min = #dirs_list - config.depth + 1
+    local min = #dirs_list - depth + 1
     if min < 1 then
         min = 1
     end
@@ -32,15 +28,15 @@ local function get_breadcrum()
 
     if min <= max then
         dir_bar = color.directory .. ' 󰉋 '
-        for i = min, max, 1 do
+        for i = min, max do
             local next_dir = dirs_list[i]
             dir_bar = dir_bar .. color.winbar .. next_dir .. color.separator .. ' > '
         end
     end
 
-    local icon, icon_hl = color.get_icon(filename, extension)
+    local icon, _ = devicon.get_icon(filename, extension, { default = true })
 
-    return dir_bar .. icon_hl .. icon .. color.winbar .. ' ' .. filename
+    return dir_bar .. color.icon .. icon .. color.winbar .. ' ' .. filename
 end
 
 ---@return bar_element
@@ -64,9 +60,8 @@ local function get_git_branch()
     return branch
 end
 
----@return bar_element
 M.get_winbar = function()
-    return get_breadcrum() .. '%=' .. get_diagnostics() .. '   ' .. get_git_branch() .. ' '
+    return get_breadcrum(config.depth) .. '%=' .. get_diagnostics() .. '   ' .. get_git_branch() .. ' '
 end
 
 return M
