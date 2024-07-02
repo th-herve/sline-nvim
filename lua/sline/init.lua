@@ -25,14 +25,14 @@ function M.setup(opts)
             end
 
             vim.o[elem] = bar.get_winbar()
-            color.update_icon()
+            color.update_icon_fg()
         end,
     })
     vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
         group = augroup,
         callback = function()
             color.set_highlights()
-            color.update_icon()
+            color.update_icon_fg()
         end,
     })
 end
