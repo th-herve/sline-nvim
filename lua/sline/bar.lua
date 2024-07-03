@@ -61,7 +61,13 @@ local function get_git_branch()
 end
 
 M.get_winbar = function()
-    return get_breadcrum(config.depth) .. '%=' .. get_diagnostics() .. '   ' .. get_git_branch() .. ' '
+    local bread = get_breadcrum(config.depth)
+    local diag = get_diagnostics()
+    local branch = get_git_branch()
+
+    local bar = bread .. ' %= ' .. diag .. '   ' .. branch .. ' '
+
+    return bar
 end
 
 return M

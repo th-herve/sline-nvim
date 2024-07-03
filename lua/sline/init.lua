@@ -16,7 +16,7 @@ function M.setup(opts)
 
     config.setup(opts)
 
-    vim.api.nvim_create_autocmd({ 'BufEnter', 'LspTokenUpdate' }, {
+    vim.api.nvim_create_autocmd({ 'BufEnter', 'DiagnosticChanged', 'LspAttach' }, {
         group = augroup,
         callback = function()
             local elem = 'winbar'
