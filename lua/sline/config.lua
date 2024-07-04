@@ -2,12 +2,14 @@
 ---@field depth integer
 ---@field status_line boolean
 ---@field unamed_buffer_label string
+---@field contrast boolean
 local M = {}
 
 local default_config = {
-    depth = 1,
-    status_line = false,
+    depth = 1, -- number of directory in the path
+    status_line = false, -- display the bar at the bottom instead of top
     unamed_buffer_label = '[ no name ]',
+    contrast = true, -- should the bar be a different color than the background
 }
 
 ---@param opts Config
