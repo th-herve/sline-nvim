@@ -54,6 +54,11 @@ M.update_icon_fg = function()
     vim.cmd('highlight SlineIcon guifg=' .. fg) -- using vim.api.nvim_set_hl does not work, dk why
 end
 
+M.update = function()
+    M.set_highlights()
+    M.update_icon_fg()
+end
+
 M.setup = function()
     M.base = (config.contrast and 'StatusLine' or 'Normal')
     M.set_highlights()
