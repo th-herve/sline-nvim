@@ -3,6 +3,7 @@
 ---@field status_line boolean
 ---@field unamed_buffer_label string
 ---@field contrast boolean
+---@field bg_color string
 local M = {}
 
 local default_config = {
@@ -10,6 +11,7 @@ local default_config = {
     status_line = false, -- display the bar at the bottom instead of top
     unamed_buffer_label = '[ no name ]',
     contrast = true, -- should the bar be a different color than the background
+    bg_color = '',
 }
 
 ---@param opts Config

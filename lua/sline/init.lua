@@ -32,8 +32,7 @@ function M.setup(opts)
     vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
         group = augroup,
         callback = function()
-            color.set_highlights()
-            color.update_icon_fg()
+            color.update()
         end,
     })
 end

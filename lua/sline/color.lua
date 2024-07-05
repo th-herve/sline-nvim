@@ -26,6 +26,7 @@ end
 local M = {}
 
 M.base = ''
+M.bg = ''
 
 M.bar = '%#SlineBar#'
 M.icon = '%#SlineIcon#'
@@ -35,7 +36,8 @@ M.lsp_error = '%#SlineLspError#'
 M.separator = '%#SlineSeparator#'
 
 M.set_highlights = function() -- call the setup function before
-    local bg = get(M.base, 'bg')
+    -- local bg = get(M.base, 'bg')
+    local bg = M.bg
     local highlights = {
         SlineDirectory = { default = true, bg = bg, fg = get('Directory', 'fg') },
         SlineLspError = { default = true, bg = bg, fg = get('DiagnosticError', 'fg') },
@@ -54,8 +56,30 @@ M.update_icon_fg = function()
     vim.cmd('highlight SlineIcon guifg=' .. fg) -- using vim.api.nvim_set_hl does not work, dk why
 end
 
+M.set_bg = function()
+    M.bg = config.bg_color
+
+    print(M.bg)
+    if M.bg == '' then
+        M.bg = 'StatusLine'
+    end
+
+    if vim.fn.hlexists(M.bg) then
+        print('exists')
+        M.bg = get(M.bg, 'bg')
+    end
+    print(M.bg)
+end
+
+M.update = function()
+    M.set_bg()
+    M.set_highlights()
+    M.update_icon_fg()
+end
+
 M.setup = function()
     M.base = (config.contrast and 'StatusLine' or 'Normal')
+    M.set_bg()
     M.set_highlights()
 end
 
