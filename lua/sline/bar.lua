@@ -30,13 +30,13 @@ local function get_breadcrum(depth)
         dir_bar = color.directory .. ' 󰉋 '
         for i = min, max do
             local next_dir = dirs_list[i]
-            dir_bar = dir_bar .. color.winbar .. next_dir .. color.separator .. ' > '
+            dir_bar = dir_bar .. color.bar .. next_dir .. color.separator .. ' > '
         end
     end
 
     local icon, _ = devicon.get_icon(filename, extension, { default = true })
 
-    return dir_bar .. color.icon .. icon .. color.winbar .. ' ' .. filename
+    return dir_bar .. color.icon .. icon .. color.bar .. ' ' .. filename
 end
 
 ---@return bar_element
@@ -55,17 +55,17 @@ local function get_git_branch()
     local branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
 
     if branch ~= '' then
-        branch = color.directory .. ' ' .. color.winbar .. branch
+        branch = color.directory .. ' ' .. color.bar .. branch
     end
     return branch
 end
 
-M.get_winbar = function()
-    local bread = get_breadcrum(config.depth)
+M.get_bar = function()
+    local path = get_breadcrum(config.depth)
     local diag = get_diagnostics()
     local branch = get_git_branch()
 
-    local bar = bread .. ' %= ' .. diag .. '   ' .. branch .. ' '
+    local bar = path .. ' %= ' .. diag .. '   ' .. branch .. ' '
 
     return bar
 end

@@ -15,6 +15,7 @@ function M.setup(opts)
     end
 
     config.setup(opts)
+    color.setup()
 
     vim.api.nvim_create_autocmd({ 'BufEnter', 'DiagnosticChanged', 'LspAttach' }, {
         group = augroup,
@@ -24,7 +25,7 @@ function M.setup(opts)
                 elem = 'statusline'
             end
 
-            vim.o[elem] = bar.get_winbar()
+            vim.o[elem] = bar.get_bar()
             color.update_icon_fg()
         end,
     })

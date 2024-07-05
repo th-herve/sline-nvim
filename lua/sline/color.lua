@@ -1,4 +1,5 @@
 local devicon = require('nvim-web-devicons')
+local config = require('sline.config')
 
 ---@alias highlight string %#highlight_group#
 
@@ -16,7 +17,7 @@ local function get_icon_fg()
 end
 
 ---@class Color
----@field winbar highlight
+---@field bar highlight
 ---@field directory highlight
 ---@field lsp_warning highlight
 ---@field lsp_error highlight
@@ -24,35 +25,38 @@ end
 ---@field separator highlight
 local M = {}
 
-M.bg = ''
+M.base = ''
 
-M.winbar = '%#SlineWinbar#'
+M.bar = '%#SlineBar#'
 M.icon = '%#SlineIcon#'
 M.directory = '%#SlineDirectory#'
 M.lsp_warning = '%#SlineLspWarning#'
 M.lsp_error = '%#SlineLspError#'
 M.separator = '%#SlineSeparator#'
 
-M.set_highlights = function()
-    M.bg = get('Normal', 'bg')
+M.set_highlights = function() -- call the setup function before
+    local bg = get(M.base, 'bg')
     local highlights = {
-        SlineDirectory = { default = true, bg = M.bg, fg = get('Directory', 'fg') },
-        SlineLspError = { default = true, bg = M.bg, fg = get('DiagnosticError', 'fg') },
-        SlineLspWarning = { default = true, bg = M.bg, fg = get('DiagnosticWarn', 'fg') },
-        SlineSeparator = { default = true, bg = M.bg, fg = get('DiagnosticWarn', 'fg') },
-        SlineWinbar = { default = true, bg = M.bg, fg = get('Normal', 'fg') },
-        SlineIcon = { default = true, bg = M.bg, fg = get_icon_fg() },
+        SlineDirectory = { default = true, bg = bg, fg = get('Directory', 'fg') },
+        SlineLspError = { default = true, bg = bg, fg = get('DiagnosticError', 'fg') },
+        SlineLspWarning = { default = true, bg = bg, fg = get('DiagnosticWarn', 'fg') },
+        SlineSeparator = { default = true, bg = bg, fg = get('DiagnosticWarn', 'fg') },
+        SlineBar = { default = true, bg = bg, fg = get(M.base, 'fg') },
+        SlineIcon = { default = true, bg = bg, fg = get_icon_fg() },
     }
     for k, v in pairs(highlights) do
         vim.api.nvim_set_hl(0, k, v)
     end
 end
 
-M.set_highlights()
-
 M.update_icon_fg = function()
     local fg = get_icon_fg()
     vim.cmd('highlight SlineIcon guifg=' .. fg) -- using vim.api.nvim_set_hl does not work, dk why
+end
+
+M.setup = function()
+    M.base = (config.contrast and 'StatusLine' or 'Normal')
+    M.set_highlights()
 end
 
 return M
