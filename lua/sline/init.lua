@@ -7,6 +7,10 @@ local color = require('sline.color')
 local augroup = vim.api.nvim_create_augroup('sline', { clear = true })
 
 function M.setup(opts)
+    if not opts.enable then
+        return
+    end
+
     local ok, _ = pcall(require, 'nvim-web-devicons')
 
     if not ok then
