@@ -23,6 +23,7 @@ end
 ---@field lsp_error highlight
 ---@field git_sign highlight
 ---@field separator highlight
+---@field mode highlight
 local M = {}
 
 M.base = ''
@@ -33,6 +34,7 @@ M.directory = '%#SlineDirectory#'
 M.lsp_warning = '%#SlineLspWarning#'
 M.lsp_error = '%#SlineLspError#'
 M.separator = '%#SlineSeparator#'
+M.mode = '%#SlineMode#'
 
 M.set_highlights = function() -- call the setup function before
     local bg = get(M.base, 'bg')
@@ -43,6 +45,7 @@ M.set_highlights = function() -- call the setup function before
         SlineSeparator = { default = true, bg = bg, fg = get('DiagnosticWarn', 'fg') },
         SlineBar = { default = true, bg = bg, fg = get(M.base, 'fg') },
         SlineIcon = { default = true, bg = bg, fg = get_icon_fg() },
+        SlineMode = { default = true, link = 'DiffText' },
     }
     for k, v in pairs(highlights) do
         vim.api.nvim_set_hl(0, k, v)

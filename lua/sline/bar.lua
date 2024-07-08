@@ -47,7 +47,7 @@ local function get_diagnostics()
 
     local count = require('sline.diagnostics').get_count()
 
-    return color.lsp_error .. ' ' .. count.error .. ' ' .. color.lsp_warning .. ' ' .. count.warning
+    return color.lsp_error .. ' ' .. count.error .. ' ' .. color.lsp_warning .. ' ' .. count.warning
 end
 
 ---@return bar_element
@@ -60,12 +60,24 @@ local function get_git_branch()
     return branch
 end
 
+---@return bar_element
+local function get_mode()
+    local mode = vim.api.nvim_get_mode().mode
+    if mode == '\22' then -- visual block
+        mode = 'V'
+    elseif mode == 'nt' then -- terminal
+        mode = 't'
+    end
+    return color.mode .. ' ' .. mode
+end
+
 M.get_bar = function()
     local path = get_breadcrum(config.depth)
     local diag = get_diagnostics()
     local branch = get_git_branch()
+    local mode = get_mode()
 
-    local bar = path .. ' %= ' .. diag .. '   ' .. branch .. ' '
+    local bar = color.bar .. mode .. ' ' .. path .. ' %= ' .. diag .. '   ' .. branch .. ' '
 
     return bar
 end

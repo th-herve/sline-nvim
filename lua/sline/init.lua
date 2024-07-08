@@ -17,7 +17,7 @@ function M.setup(opts)
     config.setup(opts)
     color.setup()
 
-    vim.api.nvim_create_autocmd({ 'BufEnter', 'DiagnosticChanged', 'LspAttach' }, {
+    vim.api.nvim_create_autocmd({ 'BufEnter', 'DiagnosticChanged', 'LspAttach', 'ModeChanged' }, {
         group = augroup,
         callback = function()
             local elem = 'winbar'
@@ -29,6 +29,7 @@ function M.setup(opts)
             color.update_icon_fg()
         end,
     })
+
     vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
         group = augroup,
         callback = function()
