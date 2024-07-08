@@ -75,7 +75,7 @@ M.get_bar = function()
     local path = get_breadcrum(config.depth)
     local diag = get_diagnostics()
     local branch = get_git_branch()
-    local mode = get_mode()
+    local mode = (config.show_mode and get_mode() or '')
 
     local bar = color.bar .. mode .. ' ' .. path .. ' %= ' .. diag .. '   ' .. branch .. ' '
 
