@@ -1,4 +1,5 @@
 ---@class Config
+---@field enable boolean
 ---@field depth integer
 ---@field status_line boolean
 ---@field unamed_buffer_label string
@@ -6,6 +7,7 @@
 local M = {}
 
 local default_config = {
+    enable = true,
     depth = 1, -- number of directory in the path
     status_line = false, -- display the bar at the bottom instead of top
     unamed_buffer_label = '[ no name ]',
