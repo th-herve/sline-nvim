@@ -9,7 +9,7 @@ local default_config = {
     depth = 1, -- number of directory in the path
     status_line = false, -- display the bar at the bottom instead of top
     unamed_buffer_label = '[ no name ]',
-    contrast = true, -- should the bar be a different color than the background
+    contrast = false, -- should the bar be a different color than the background
 }
 
 ---@param opts Config
