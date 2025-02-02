@@ -7,7 +7,7 @@ local color = require('sline.color')
 local augroup = vim.api.nvim_create_augroup('sline', { clear = true })
 
 function M.setup(opts)
-    if not opts.enable then
+    if opts.enable == false then
         return
     end
 
